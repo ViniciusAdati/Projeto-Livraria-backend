@@ -65,7 +65,7 @@ export const addBookToInventory = async (
 export const getRecentBooks = async () => {
   try {
     const sql = `
-      SELECT 
+      SELECT
         inv.id as inventario_id,
         inv.valor_troca,
         inv.estado_conservacao,
@@ -93,7 +93,7 @@ export const getRecentBooks = async () => {
 export const getBooksByUserId = async (userId: number) => {
   try {
     const sql = `
-      SELECT 
+      SELECT
         inv.id as inventario_id,
         inv.valor_troca,
         inv.estado_conservacao,
@@ -105,7 +105,7 @@ export const getBooksByUserId = async (userId: number) => {
       FROM Inventario AS inv
       JOIN Livros AS l ON inv.livro_id = l.id
       JOIN Usuarios AS u ON inv.usuario_id = u.id
-      WHERE inv.usuario_id = ? 
+      WHERE inv.usuario_id = ?
       ORDER BY inv.data_adicao DESC;
     `;
 
