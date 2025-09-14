@@ -1,10 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-// Precisamos adicionar a propriedade 'user' ao objeto Request do Express
-// Este código é um "truque" do TypeScript para fazer isso funcionar
 export interface CustomRequest extends Request {
-  user?: { id: number; email: string }; // Os dados que colocamos dentro do token
+  user?: { id: number; email: string };
 }
 
 export const authMiddleware = (

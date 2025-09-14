@@ -55,10 +55,35 @@ export const addBookToInventory = async (
     return { success: true, message: "Livro adicionado ao inventário." };
   } catch (error) {
     await connection.rollback();
-    console.error("Erro ao adicionar livro:", error);
+    console.error("Erro ao adicionar livro:", error); // (Mantemos logs de ERRO reais)
     throw new Error("Falha ao salvar o livro no banco de dados.");
   } finally {
     connection.release();
+  }
+};
+
+export const deleteBookFromInventory = async (
+  userId: number,
+  inventoryId: number
+) => {
+  try {
+    const sql = `
+      DELETE FROM Inventario 
+      WHERE id = ? AND usuario_id = ?;
+    `;
+
+    const [result]: any = await pool.execute(sql, [inventoryId, userId]);
+
+    if (result.affectedRows > 0) {
+      return { success: true, message: "Item removido com sucesso." };
+    } else {
+      throw new Error(
+        "Item não encontrado ou usuário não autorizado para deletar este item."
+      );
+    }
+  } catch (error: any) {
+    console.error("Erro ao deletar item do inventário:", error); // (Mantemos logs de ERRO reais)
+    throw new Error(error.message || "Falha ao deletar o item.");
   }
 };
 
