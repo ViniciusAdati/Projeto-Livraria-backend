@@ -55,7 +55,7 @@ export const addBookToInventory = async (
     return { success: true, message: "Livro adicionado ao inventário." };
   } catch (error) {
     await connection.rollback();
-    console.error("Erro ao adicionar livro:", error); // (Mantemos logs de ERRO reais)
+    console.error("Erro ao adicionar livro:", error);
     throw new Error("Falha ao salvar o livro no banco de dados.");
   } finally {
     connection.release();
@@ -82,7 +82,7 @@ export const deleteBookFromInventory = async (
       );
     }
   } catch (error: any) {
-    console.error("Erro ao deletar item do inventário:", error); // (Mantemos logs de ERRO reais)
+    console.error("Erro ao deletar item do inventário:", error);
     throw new Error(error.message || "Falha ao deletar o item.");
   }
 };
